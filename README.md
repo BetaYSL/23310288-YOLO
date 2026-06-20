@@ -53,3 +53,198 @@ Desarrollar un modelo de visión artificial capaz de detectar teléfonos celular
 
 ---
 
+# Dataset Utilizado
+
+Dataset personalizado generado mediante Roboflow.
+
+## Clase Entrenada
+
+```text
+celular
+```
+
+## Configuración utilizada
+
+```text
+Epochs: 30
+Resolución: 640 × 640
+Modelo: YOLOv8 Nano
+```
+
+---
+
+# Resultados del Entrenamiento
+
+Resultados obtenidos durante el entrenamiento:
+
+```text
+Precisión (P): 98.5%
+Recall (R): 78.3%
+mAP50: 91.2%
+mAP50–95: 81.7%
+```
+
+Interpretación:
+
+El modelo logró detectar teléfonos celulares con un nivel alto de precisión considerando el tamaño del conjunto de datos utilizado.
+
+---
+
+# Estructura del Repositorio
+
+```plaintext
+ProyectoVisionArtificial/
+│
+├── notebook/
+│      EntrenamientoYOLO_DeteccionCelulares.ipynb
+│
+├── modelo/
+│      best.pt
+│
+├── evidencias/
+│      evidencia1.jpg
+│      evidencia2.jpg
+│      evidencia3.jpg
+│
+├── requirements.txt
+│
+└── README.md
+```
+
+---
+
+# Instalación
+
+Instalar dependencias:
+
+```bash
+pip install ultralytics
+```
+
+---
+
+# Ejecución
+
+Ejecutar el notebook en Google Colab.
+
+Posteriormente:
+
+```bash
+Entrenar → Generar best.pt → Ejecutar inferencia
+```
+
+---
+
+# Código Fuente
+
+## 1. Instalación de Dependencias
+
+```python
+!pip install ultralytics
+```
+
+---
+
+## 2. Importación del Modelo
+
+```python
+from ultralytics import YOLO
+
+model = YOLO("yolov8n.pt")
+
+print("Modelo cargado correctamente")
+```
+
+---
+
+## 3. Carga del Dataset
+
+```python
+from google.colab import files
+
+uploaded = files.upload()
+```
+
+---
+
+## 4. Descompresión
+
+```python
+!unzip "CelularesYOLO.v3i.yolov8.zip"
+```
+
+---
+
+## 5. Verificación
+
+```python
+!ls
+```
+
+---
+
+## 6. Verificación GPU
+
+```python
+import torch
+
+print(torch.cuda.is_available())
+```
+
+---
+
+## 7. Entrenamiento
+
+```python
+from ultralytics import YOLO
+
+model = YOLO("yolov8n.pt")
+
+results = model.train(
+    data="/content/data.yaml",
+    epochs=30,
+    imgsz=640
+)
+```
+
+---
+
+## 8. Cargar Modelo Entrenado
+
+```python
+modelo = YOLO(
+"/content/runs/detect/train-3/weights/best.pt"
+)
+```
+
+---
+
+## 9. Cargar Imagen
+
+```python
+from google.colab import files
+
+files.upload()
+```
+
+---
+
+## 10. Detección
+
+```python
+from PIL import Image
+
+resultado = modelo(
+"/content/imagen_prueba.jpg"
+)
+
+for r in resultado:
+
+    imagen = Image.fromarray(
+        r.plot()[...,::-1]
+    )
+
+    display(imagen)
+```
+
+---
