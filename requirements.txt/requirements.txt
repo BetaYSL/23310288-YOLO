@@ -1,0 +1,13 @@
+ultralytics → para entrenar y ejecutar YOLOv8 (esta sí es obligatoria).
+
+torch → motor de entrenamiento (PyTorch).
+
+torchvision → apoyo para procesamiento de imágenes.
+
+opencv-python → si hiciste pruebas con imágenes/video.
+
+Pillow → mostrar y guardar imágenes.
+
+PyYAML → leer data.yaml.
+
+numpy → manejo numérico interno.
